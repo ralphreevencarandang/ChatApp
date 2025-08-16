@@ -4,6 +4,7 @@ import cookieParser from 'cookie-parser'
 import { connectDB } from './config/db.js';
 import authRoute from '../src/routes/authRoute.js'
 import messageRoute from '../src/routes/messageRoute.js'
+import cors from 'cors'
 dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 5001
@@ -17,7 +18,17 @@ app.use(express.json(
 ));
 // this will allow your server handle larger image without throwing the error
 // app.use(express.urlencoded({extended:true, limit: '10mb'}))
+
 app.use(cookieParser());
+app.use(cors({
+    origin: ['http://localhost:5173'],
+    credentials:true,
+    methods: ['GET', 'POST', 'DELETE', 'PUT', 'OPTIONS'],
+    allowedHeaders: ['Content-Type'],
+
+
+}))
+
 
 app.use('/api/auth', authRoute)
 app.use('/api/message', messageRoute)

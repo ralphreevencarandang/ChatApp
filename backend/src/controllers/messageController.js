@@ -1,6 +1,7 @@
 import Message from "../models/MessageModel.js";
 import User from "../models/UserModel.js";
 import cloudinary from "../lib/cloudinary.js";
+
 export const getUsersForSidebar = async (req, res)=>{
 
     try {
@@ -47,7 +48,6 @@ export const sendMessage = async (req, res)=>{
         const {id:receiverId} = req.params;
         const {text, image} =req.body;
         const senderId = req.user._id;
-
         // undefined
         let imageUrl;
         // if may laman yung image u-upload n iya sa cloudinary
@@ -57,7 +57,6 @@ export const sendMessage = async (req, res)=>{
             // then assign sa imageurl yung path ng image para pwede siya iget mamaya pag nasa db na siya
             imageUrl = uploadResponse.secure_url;
         }
-        
         const newMessage = new Message({
             senderId,
             receiverId,
@@ -67,10 +66,8 @@ export const sendMessage = async (req, res)=>{
         })
 
         await newMessage.save()
-
         // todo: realtime functionality goes here => socket.io
         res.status(201).json({success: true, message:'Message sent success', newMessage})
-
     } catch (error) {
         console.log('Error in send message controller: ', error);
         res.status(500).json({success:false, message: "Internal server error"})
