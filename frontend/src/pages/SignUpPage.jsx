@@ -6,13 +6,15 @@ import PasswordField from '../components/form/PasswordField'
 import { signupSchema } from '../validation'
 import {Link} from 'react-router'
 import AuthImagePattern from '../components/AuthImagePattern'
+import { useMutation } from '@tanstack/react-query'
+import { signupOptions } from '../react-queries/authOptions'
 
 const SignUpPage = () => {
 
- 
-
+  const signupMutation = useMutation(signupOptions)
   return (
     <section className='min-h-screen grid lg:grid-cols-2'>
+      {/* LEFT SIDE */}
         <div className='flex flex-col justify-center items-center p-6 sm:p-12'>
           <div className='w-full max-w-md space-y-8'>
             {/* LOGO */}
@@ -31,6 +33,7 @@ const SignUpPage = () => {
               onSubmit={(values,actions)=>{
                 console.log('Values: ', values);
                 console.log('Actions: ', actions);
+                signupMutation.mutate(values)
               
               }}
             >
@@ -38,10 +41,10 @@ const SignUpPage = () => {
                   <Form className='space-y-6'>
                     <TextField type='text' name='fullname' label={'Fullname'} icon={<User className='size-5 text-base-content/40 z-10'/>}/>
                     <TextField type='email' name='email' label={'Email'} icon={<Mail className='size-5 text-base-content/40 z-10'/>}/>
-                   <PasswordField name='password'/>
+                    <PasswordField name='password'/>
 
-                   <button type="submit" className='btn btn-primary w-full' disabled={props.isSubmitting}>{
-                   props.isSubmitting ? <><Loader className='size-5 animate-spin'/> Creating...</> : 'Create Account'}</button> 
+                   <button type="submit" className='btn btn-primary w-full' disabled={signupMutation.isPending}>{
+                   signupMutation.isPending ? <><Loader className='size-5 animate-spin'/> Creating...</> : 'Create Account'}</button> 
                   </Form>
                 }
             </Formik>

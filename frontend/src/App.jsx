@@ -7,6 +7,7 @@ import SettingsPage from "./pages/SettingsPage"
 import ProfilePage from "./pages/ProfilePage"
 import NotFoundPage from "./pages/NotFoundPage"
 import ProtectedRoute from "./components/ProtectedRoute"
+import { useAuthStore } from "./store/useAuthStore"
 
 function App() {
 
