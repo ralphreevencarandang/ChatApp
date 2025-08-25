@@ -98,7 +98,7 @@ export const updateProfile = async (req, res)=>{
         const {profilePic} = req.body
         // since protected route, igeget natin yung pinasa nating id sa middleware
         // assign the id into userId
-        const {userId} = req.user._id;
+        const userId = req.user._id;
 
         if(!profilePic){
             return res.status(400).json({success:false, message:"Profile pic is required"})

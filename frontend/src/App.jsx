@@ -8,18 +8,23 @@ import ProfilePage from "./pages/ProfilePage"
 import NotFoundPage from "./pages/NotFoundPage"
 import ProtectedRoute from "./components/ProtectedRoute"
 import { useAuthStore } from "./store/useAuthStore"
+import { useEffect } from "react"
+
+import { Navigate } from "react-router"
 
 function App() {
 
+
+  const {authUser} = useAuthStore()
+
   return (
     <div>
-      <Navbar/>
       
+      <Navbar/>
       <Routes>
           {/* Root Routes */}
-            <Route path="/signup" element={<SignUpPage/>}/>
-            <Route path="/login" element={<LoginPage/>}/>
-            <Route path="*" element={<NotFoundPage/>}/>
+            <Route path="/signup" element={!authUser ? <SignUpPage/> : <Navigate to='/' />}/>
+            <Route path="/login" element={!authUser ? <LoginPage/> : <Navigate to='/'/>}/>
 
           {/* Protected Routes */}
           <Route element={<ProtectedRoute/>}>
@@ -27,7 +32,11 @@ function App() {
             <Route path="/settings" element={<SettingsPage/>}/>
             <Route path="/profile" element={<ProfilePage/>}/>
           </Route>
+
+          <Route path="*" element={<NotFoundPage/>}/>
+
       </Routes>
+
     </div>
   )
 }

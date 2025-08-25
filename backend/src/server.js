@@ -14,10 +14,10 @@ await connectDB();
 app.use(express.json(
     // default kase is 100KB lang so mag e-error siya pag nag pasa tayo ng malaking file size
     // so need natin iconfig yung limit into 10mb
-    // {limit: '10mb'}
+    {limit: '10mb'}
 ));
 // this will allow your server handle larger image without throwing the error
-// app.use(express.urlencoded({extended:true, limit: '10mb'}))
+app.use(express.urlencoded({extended:true, limit: '10mb'}))
 
 app.use(cookieParser());
 app.use(cors({

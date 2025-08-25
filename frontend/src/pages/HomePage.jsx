@@ -6,6 +6,10 @@ const HomePage = () => {
         <p>HomePage</p>
         <p>HomePage</p>
         <p>HomePage</p>
+        <p>HomePage</p>
+        <p>HomePage</p>
+        <p>HomePage</p>
+        <p>HomePage</p>
     </div>
   )
 }

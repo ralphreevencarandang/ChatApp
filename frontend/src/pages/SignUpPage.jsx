@@ -1,17 +1,19 @@
 
 import {Formik, Form} from 'formik'
 import {MessageSquare, User, Mail, EyeOff, Eye, Loader} from 'lucide-react'
-import TextField from '../components/form/TextField'
-import PasswordField from '../components/form/PasswordField'
 import { signupSchema } from '../validation'
 import {Link} from 'react-router'
-import AuthImagePattern from '../components/AuthImagePattern'
 import { useMutation } from '@tanstack/react-query'
 import { signupOptions } from '../react-queries/authOptions'
+import AuthImagePattern from '../components/AuthImagePattern'
+import TextField from '../components/form/TextField'
+import PasswordField from '../components/form/PasswordField'
+import Button from '../components/form/Button'
 
 const SignUpPage = () => {
 
   const signupMutation = useMutation(signupOptions)
+
   return (
     <section className='min-h-screen grid lg:grid-cols-2'>
       {/* LEFT SIDE */}
@@ -42,9 +44,7 @@ const SignUpPage = () => {
                     <TextField type='text' name='fullname' label={'Fullname'} icon={<User className='size-5 text-base-content/40 z-10'/>}/>
                     <TextField type='email' name='email' label={'Email'} icon={<Mail className='size-5 text-base-content/40 z-10'/>}/>
                     <PasswordField name='password'/>
-
-                   <button type="submit" className='btn btn-primary w-full' disabled={signupMutation.isPending}>{
-                   signupMutation.isPending ? <><Loader className='size-5 animate-spin'/> Creating...</> : 'Create Account'}</button> 
+                    <Button type="submit" disabled={signupMutation.isPending} label={ signupMutation.isPending ? <><Loader className='size-5 animate-spin'/> Creating...</> : 'Create Account'}/>
                   </Form>
                 }
             </Formik>
