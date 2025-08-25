@@ -8,7 +8,7 @@ import ProfilePage from "./pages/ProfilePage"
 import NotFoundPage from "./pages/NotFoundPage"
 import ProtectedRoute from "./components/ProtectedRoute"
 import { useAuthStore } from "./store/useAuthStore"
-import { useEffect } from "react"
+import { useThemeStore } from "./store/useThemeStore"
 
 import { Navigate } from "react-router"
 
@@ -16,20 +16,21 @@ function App() {
 
 
   const {authUser} = useAuthStore()
+  const {theme} = useThemeStore();
 
   return (
-    <div>
+    <div data-theme={theme}>
       
       <Navbar/>
       <Routes>
           {/* Root Routes */}
             <Route path="/signup" element={!authUser ? <SignUpPage/> : <Navigate to='/' />}/>
             <Route path="/login" element={!authUser ? <LoginPage/> : <Navigate to='/'/>}/>
+            <Route path="/settings" element={<SettingsPage/>}/>
 
           {/* Protected Routes */}
           <Route element={<ProtectedRoute/>}>
             <Route path="/" element={<HomePage/>}/>
-            <Route path="/settings" element={<SettingsPage/>}/>
             <Route path="/profile" element={<ProfilePage/>}/>
           </Route>
 

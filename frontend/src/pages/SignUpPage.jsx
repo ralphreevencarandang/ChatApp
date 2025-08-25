@@ -9,10 +9,15 @@ import AuthImagePattern from '../components/AuthImagePattern'
 import TextField from '../components/form/TextField'
 import PasswordField from '../components/form/PasswordField'
 import Button from '../components/form/Button'
+import { useNavigate } from 'react-router'
 
 const SignUpPage = () => {
 
-  const signupMutation = useMutation(signupOptions)
+  const navigate = useNavigate()
+  const signupMutation = useMutation({...signupOptions, 
+    onSuccess: ()=>{
+      navigate('/')
+    } })
 
   return (
     <section className='min-h-screen grid lg:grid-cols-2'>
