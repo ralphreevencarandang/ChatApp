@@ -31,7 +31,7 @@ app.use(cors({
 
 
 app.use('/api/auth', authRoute)
-app.use('/api/message', messageRoute)
+app.use('/api/messages', messageRoute)
 
 
 
