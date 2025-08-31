@@ -21,11 +21,11 @@ export const getUsersForSidebar = async (req, res)=>{
     }
 }
 
-export const getMessages = async ()=>{
+export const getMessages = async (req, res)=>{
     try {
         // rename the id 
-        const {id:userToChatId} = req.params
-        const senderId = req.user._id;
+        const {id: userToChatId} = req.params
+        const senderId = req.user._id.toString();
 
         // find the messages where yung id mo at yung receiver and vice versa
         // bali yung messages lang ng receiver at  sender lang mag d-display
@@ -46,7 +46,7 @@ export const getMessages = async ()=>{
 export const sendMessage = async (req, res)=>{
     try {
         const {id:receiverId} = req.params;
-        const {text, image} =req.body;
+        const {text, image} = req.body;
         const senderId = req.user._id;
         // undefined
         let imageUrl;

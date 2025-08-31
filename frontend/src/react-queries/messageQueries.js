@@ -23,3 +23,16 @@ export const getMessages = async (id)=>{
         toast.error(error.response.data.message)
     }
 }
+
+export const sendMessage = async (id,values)=>{
+    try {
+        const res = await axios.post(`/send/${id}`,values)
+
+        console.log(res.data);
+        
+        
+    } catch (error) {
+        console.log('Error in get messages function: ', error);
+        toast.error(error.response.data.message)
+    }
+}
