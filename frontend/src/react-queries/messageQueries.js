@@ -24,15 +24,14 @@ export const getMessages = async (id)=>{
     }
 }
 
-export const sendMessage = async (id,values)=>{
+export const sendMessage = async ({ id, values })=>{
     try {
-        const res = await axios.post(`/send/${id}`,values)
-
+        const res = await axios.post(`/messages/send/${id}`,values)
         console.log(res.data);
         
-        
     } catch (error) {
-        console.log('Error in get messages function: ', error);
+        console.log('Error in send message function: ', error);
         toast.error(error.response.data.message)
     }
 }
+

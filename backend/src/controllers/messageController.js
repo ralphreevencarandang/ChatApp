@@ -25,7 +25,7 @@ export const getMessages = async (req, res)=>{
     try {
         // rename the id 
         const {id: userToChatId} = req.params
-        const senderId = req.user._id.toString();
+        const senderId = req.user._id;
 
         // find the messages where yung id mo at yung receiver and vice versa
         // bali yung messages lang ng receiver at  sender lang mag d-display
@@ -46,8 +46,10 @@ export const getMessages = async (req, res)=>{
 export const sendMessage = async (req, res)=>{
     try {
         const {id:receiverId} = req.params;
+
         const {text, image} = req.body;
         const senderId = req.user._id;
+
         // undefined
         let imageUrl;
         // if may laman yung image u-upload n iya sa cloudinary
