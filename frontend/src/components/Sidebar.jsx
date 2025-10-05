@@ -4,11 +4,13 @@ import { getUsersOptions } from '../react-queries/messageOptions';
 import { useChatStore } from '../store/useChatStore';
 import SidebarSkeleton from './skeletons/SidebarSkeleton';
 import { Users } from 'lucide-react';
+import { useAuthStore } from '../store/useAuthStore';
 
 const Sidebar = () => {
     const {data, isFetching} = useQuery(getUsersOptions)
     const {selectedUser,setSelectedUser} = useChatStore();
-    const onlineUsers = [];
+    const {onlineUsers} = useAuthStore();
+
 
     if(isFetching) return <SidebarSkeleton/>
 

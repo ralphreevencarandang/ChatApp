@@ -6,7 +6,9 @@ export const checkAuth = async ()=>{
     try {
         const res = await axios.get(`/auth/check-auth`); 
         res.data.success && useAuthStore.getState().setAuthUser(res.data.user)
-          return res.data
+        useAuthStore.getState().connectSocket()
+
+        return res.data
     } catch (error) {
         console.log('Error in check auth function', error);
         console.log(error.response.data.message);
@@ -18,6 +20,7 @@ export const login = async(values)=>{
         const res = await axios.post('/auth/signin', values);
         // res.data.success && useAuthStore.getState().setAuthUser(res.data.user)
         res.data.success && toast.success('Login successfully')
+        useAuthStore.getState().connectSocket()
 
     } catch (error) {
         console.log('Error in sign up function', error);
@@ -43,6 +46,8 @@ export const logout = async ()=>{
         const res = await axios.post('/auth/logout');
         res.data.success && useAuthStore.getState().setAuthUser(null)
         res.data.success && toast.success('Logout successfully')
+        useAuthStore.getState().disconnectSocket()
+
     } catch (error) {
         console.log('Error in logout function', error);
         toast.error(error.response.data.message)
