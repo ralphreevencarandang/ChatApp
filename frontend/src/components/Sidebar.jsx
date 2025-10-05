@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useQuery } from '@tanstack/react-query';
 import { getUsersOptions } from '../react-queries/messageOptions';
 import { useChatStore } from '../store/useChatStore';
@@ -11,6 +11,9 @@ const Sidebar = () => {
     const {selectedUser,setSelectedUser} = useChatStore();
     const {onlineUsers} = useAuthStore();
 
+    const [showOnlineOnly, setShowOnlineOnly] = useState(false)
+
+    const filteredUsers = showOnlineOnly ? data.users.filter(user => onlineUsers.includes(user._id)) : data.users
 
     if(isFetching) return <SidebarSkeleton/>
 
@@ -23,10 +26,25 @@ const Sidebar = () => {
                 <Users className='size-6'/>
                 <span className='font-medium hidden lg:block'>Contacts</span>
             </div>
+
+            {/* TODO: Online filter toggle */}
+            <div className="mt-3 hidden lg:flex items-center gap-2">
+            <label className="cursor-pointer flex items-center gap-2">
+                <input
+                type="checkbox"
+                checked={showOnlineOnly}
+                onChange={(e) => setShowOnlineOnly(e.target.checked)}
+                className="checkbox checkbox-sm"
+                />
+                <span className="text-sm">Show online only</span>
+            </label>
+            <span className="text-xs text-zinc-500">({onlineUsers.length - 1} online)</span>
+            </div>
+
         </div>
         {/* TODO: online filter toggle */}
         <div className='overflow-y-auto w-full py-3'>
-            {data.users?.map((user)=>(
+            {filteredUsers?.map((user)=>(
                 <button 
                     key={user._id}
                     onClick={()=> setSelectedUser(user)}
