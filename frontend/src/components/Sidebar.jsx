@@ -13,7 +13,15 @@ const Sidebar = () => {
 
     const [showOnlineOnly, setShowOnlineOnly] = useState(false)
 
-    const filteredUsers = showOnlineOnly ? data.users.filter(user => onlineUsers.includes(user._id)) : data.users
+ 
+    let filteredUsers ;
+    if(data){
+     filteredUsers = showOnlineOnly ? data.users.filter(user => onlineUsers.includes(user._id)) : data.users
+        
+    }
+
+
+
 
     if(isFetching) return <SidebarSkeleton/>
 

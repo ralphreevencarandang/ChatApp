@@ -32,7 +32,7 @@ const SignUpPage = () => {
 
                   </div>
                   <h1 className='text-2xl font-bold mt-2'>Create Account</h1>
-                  <p className='text-base-content/60'>Get started with your free account</p>
+                  <p className='text-base-content/60'>Create your free account to get started</p>
               </div>
             </div>
             {/* FORM */}
@@ -63,7 +63,7 @@ const SignUpPage = () => {
         </div>
 
         {/* Right Side */}
-        <AuthImagePattern title={'Join our community'} subtitle={'Connect with friends, shate moments, and stay in touch with your loved ones.'}/>
+        <AuthImagePattern title={'Become part of our community'} subtitle={'Stay connected with friends, share moments, and keep in touch with the people who matter.'}/>
       
     </section>
   )
